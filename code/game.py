@@ -1,9 +1,7 @@
 import pygame
-
-from code.level import Level
 from code.menu import Menu
+from code.level import Level
 from const import LARGURA_TELA, ALTURA_TELA, MENU
-
 
 class Game:
     def __init__(self):

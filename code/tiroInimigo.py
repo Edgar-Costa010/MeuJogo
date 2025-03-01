@@ -1,11 +1,10 @@
 from code.entity import Entity
 from const import VELOCIDADES
 
-
-class PlayerShot(Entity):
+class TiroInimigo(Entity):
 
     def __init__(self, name: str, position: tuple):
         super().__init__(name, position)
 
     def move(self):
-        self.rect.centerx += VELOCIDADES[self.name]
+        self.rect.centerx -= VELOCIDADES[self.name]

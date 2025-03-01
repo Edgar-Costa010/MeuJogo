@@ -1,7 +1,7 @@
 import random
+from code.inimigos import Inimigos
+from code.jogador import Jogador
 from code.background import Background
-from code.enemy import Enemy
-from code.player import Player
 from const import LARGURA_TELA, ALTURA_TELA
 
 class EntityFactory:
@@ -17,10 +17,10 @@ class EntityFactory:
                 return list_bg
 
             case 'jogador':
-                return Player('jogador', (10, ALTURA_TELA / 2 - 30))
+                return Jogador('jogador', (10, ALTURA_TELA - 60))
 
             case 'inimigo1':
-                return Enemy('inimigo1', (LARGURA_TELA + 10, random.randint(0, ALTURA_TELA)))
+                return Inimigos('inimigo1', (LARGURA_TELA + 10, random.randint(0, ALTURA_TELA)))
 
             case 'inimigo2':
-                return Enemy('inimigo2', (LARGURA_TELA + 10, random.randint(0, ALTURA_TELA)))
+                return Inimigos('inimigo2', (LARGURA_TELA + 10, random.randint(0, ALTURA_TELA)))
