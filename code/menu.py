@@ -1,9 +1,8 @@
-
 import pygame.image
-from pygame import Surface, Rect, KEYDOWN
-from pygame.font import Font
-from const import LARGURA_TELA, AZUL_CLARO, PRETO, ROXO
 from const import MENU
+from pygame.font import Font
+from pygame import Surface, Rect, KEYDOWN
+from const import LARGURA_TELA, AZUL_CLARO, PRETA, ROXA
 
 class Menu:
     def __init__(self, window):
@@ -18,13 +17,13 @@ class Menu:
 
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
-            self.menu_text(50, "Meu Jogo", ROXO, ((LARGURA_TELA / 2), 70))
+            self.menu_text(50, "Meu Jogo", ROXA, ((LARGURA_TELA / 2), 70))
 
             for i in range(len(MENU)):
                 if i == menu_option:
                     self.menu_text(30, MENU[i], AZUL_CLARO, ((LARGURA_TELA / 2), 200 + 25 * i))
                 else:
-                    self.menu_text(20, MENU[i], PRETO, ((LARGURA_TELA / 2), 200 + 25 * i))
+                    self.menu_text(20, MENU[i], PRETA, ((LARGURA_TELA / 2), 200 + 25 * i))
 
             pygame.display.flip()
 

@@ -8,20 +8,24 @@ from pygame import Surface, Rect
 from code.inimigos import Inimigos
 from code.entityFactory import EntityFactory
 from code.entityMediator import EntityMediator
-from const import BRANCO, EVENTOS_INIMIGOS, ALTURA_TELA, APARICAO_INIMIGOS, VERMELHO_ESCURO
+from const import BRANCA, EVENTOS_INIMIGOS, ALTURA_TELA, APARICAO_INIMIGOS, VERMELHO_ESCURO, EVENT_TIME_OUT, \
+    TIME_OUT_STEP, TIMEOUT_LEVEL
 
 class Level:
-    def __init__(self, window, name, game_mode):
-        self.timeout = 20000
+    def __init__(self, window: Surface, name: str, game_mode: str, pontos: list[int]):
+        self.timeout = TIMEOUT_LEVEL
         self.window = window
         self.name = name
-        self.game_mode = game_mode # Modo de jogo
+        self.game_mode = game_mode  # Modo de jogo
         self.entity_list: list[Entity] = []
-        self.entity_list.extend(EntityFactory.get_entity('Level1bg'))
-        self.entity_list.append(EntityFactory.get_entity('jogador'))
+        self.entity_list.extend(EntityFactory.get_entity(self.name + 'bg'))
+        jogador = EntityFactory.get_entity('jogador')
+        jogador.pontuacao = pontos [0]
+        self.entity_list.append(jogador)
         pygame.time.set_timer(EVENTOS_INIMIGOS, APARICAO_INIMIGOS)
+        pygame.time.set_timer(EVENT_TIME_OUT, TIME_OUT_STEP)
 
-    def run(self):
+    def run(self, pontos: list[int]):
         pygame.mixer_music.load('./assets/Soundlevels.mp3')
         pygame.mixer_music.play(-1)
         clock = pygame.time.Clock()
@@ -49,9 +53,24 @@ class Level:
                     choice = random.choice(('inimigo1', 'inimigo2'))
                     self.entity_list.append(EntityFactory.get_entity(choice))
 
-            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', BRANCO, (10, 5))
-            self.level_text(14, f'fps: {clock.get_fps():.0f}', BRANCO, (10, ALTURA_TELA - 35))
-            self.level_text(14, f'entidades: {len(self.entity_list)}', BRANCO, (10, ALTURA_TELA - 20))
+                if event.type == EVENT_TIME_OUT:
+                    self.timeout -= TIME_OUT_STEP
+                    if self.timeout == 0:
+                        for ent in self.entity_list:
+                            if isinstance(ent, Jogador) and ent.name == 'Jogador':
+                                pontos[0] = ent.score
+                        return True
+
+                verifica_jogador = False
+                for ent in self.entity_list:
+                    if isinstance(ent, Jogador):
+                        verifica_jogador = True
+                if not verifica_jogador:
+                    return False
+
+            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000:.1f}s', BRANCA, (10, 5))
+            self.level_text(14, f'fps: {clock.get_fps():.0f}', BRANCA, (10, ALTURA_TELA - 35))
+            self.level_text(14, f'entidades: {len(self.entity_list)}', BRANCA, (10, ALTURA_TELA - 20))
             pygame.display.flip()
 
             EntityMediator.verify_collision(entity_list=self.entity_list)
