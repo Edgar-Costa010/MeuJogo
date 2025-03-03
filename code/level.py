@@ -16,7 +16,7 @@ class Level:
         self.timeout = TIMEOUT_LEVEL
         self.window = window
         self.name = name
-        self.game_mode = game_mode  # Modo de jogo
+        self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(self.name + 'bg'))
         jogador = EntityFactory.get_entity('jogador')
