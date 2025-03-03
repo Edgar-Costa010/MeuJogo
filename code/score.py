@@ -1,9 +1,7 @@
 import pygame
 from pygame import Surface, Rect
 from pygame.font import Font
-
 from const import PRETA, LARGURA_TELA
-
 
 class Score:
 
@@ -18,7 +16,8 @@ class Score:
         pygame.mixer_music.play(-1)
         self.window.blit(source=self.surf, dest=self.rect)
         while True:
-            self.score_text(30, 'PARABÉNS PELA VITÓRIA!!', PRETA, (LARGURA_TELA/2, 50))
+            self.score_text(30, 'PARABÉNS, JOGADOR!!!', PRETA, (LARGURA_TELA/2, 50))
+            self.score_text(30, 'VOCÊ VENCEU!!!', PRETA, (LARGURA_TELA / 2, 90))
             pygame.display.flip()
             pass
 
