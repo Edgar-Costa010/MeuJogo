@@ -5,18 +5,18 @@ import pygame
 from pygame.font import Font
 from pygame import Surface, Rect, K_RETURN, K_BACKSPACE, KEYDOWN
 from code.BancoDadosProxy import BancoDados
-from const import PRETA, LARGURA_TELA, MENU, VERMELHO_ESCURO
+from const import PRETA, LARGURA_TELA, MENU, VERMELHO_ESCURO, ROXA
 
 class Score:
 
     def __init__(self, window: Surface):
         self.window = window
-        self.surf = pygame.image.load('./assets/Level1bg4.png').convert_alpha()
+        self.surf = pygame.image.load('./assets/ScoreBackGround.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
         pass
 
     def pontuacao(self, game_mode: str, pontuacao):
-        pygame.mixer_music.load('./assets/SoundMenu.wav')
+        pygame.mixer_music.load('./assets/SoundEnd.wav')
         pygame.mixer_music.play(-1)
         bancodados = BancoDados('banco')
         name = ''
@@ -24,10 +24,11 @@ class Score:
             self.window.blit(source=self.surf, dest=self.rect)
             self.score_text(30, 'PARABÉNS, JOGADOR!!!', PRETA, (LARGURA_TELA/2, 50))
             self.score_text(30, 'VOCÊ VENCEU!!!', PRETA, (LARGURA_TELA / 2, 90))
+            self.score_text(20, 'Digite seu nome:', VERMELHO_ESCURO, (LARGURA_TELA / 2, 120))
+            score = pontuacao[0]
             if game_mode == MENU[0]:
                 score = pontuacao[0]
-                texto = "Digite seu nome: "
-
+            self.score_text(20, name, ROXA, (LARGURA_TELA / 2, 150))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -42,7 +43,6 @@ class Score:
                     else:
                         if len(name) < 10:
                             name += event.unicode
-            self.score_text(20, name, VERMELHO_ESCURO, (LARGURA_TELA / 2, 120))
             pygame.display.flip()
             pass
 

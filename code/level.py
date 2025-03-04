@@ -48,11 +48,9 @@ class Level:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-
                 if event.type == EVENTOS_INIMIGOS:
                     choice = random.choice(('inimigo1', 'inimigo2'))
                     self.entity_list.append(EntityFactory.get_entity(choice))
-
                 if event.type == EVENT_TIME_OUT:
                     self.timeout -= TIME_OUT_STEP
                     if self.timeout == 0:
@@ -60,7 +58,6 @@ class Level:
                             if isinstance(ent, Jogador) and ent.name == 'Jogador':
                                 pontos[0] = ent.score
                         return True
-
                 verifica_jogador = False
                 for ent in self.entity_list:
                     if isinstance(ent, Jogador):
