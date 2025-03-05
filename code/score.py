@@ -1,6 +1,7 @@
 # Importação dos métodos e classes necessárias
 
 import sys
+
 import pygame
 from pygame.font import Font
 from datetime import datetime
@@ -23,7 +24,7 @@ class Score:
         pygame.mixer_music.play(-1)
         # Conexão do banco de dados ao score do jogo para salvar a pontuação
         bancodados = BancoDados('banco')
-        name = ''
+        name = " "
 
         # Laço para mensagem de parabéns e possibilidade de inserção do nome caso o jogador ganhe o jogo
         while True:
@@ -60,9 +61,13 @@ class Score:
         pygame.mixer_music.load('./assets/SoundMenu.wav')
         pygame.mixer_music.play(-1)
         self.window.blit(source=self.surf, dest=self.rect)
+
         while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
             pygame.display.flip()
-            pass
 
     def score_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)

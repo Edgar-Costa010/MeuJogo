@@ -50,7 +50,7 @@ EVENTOS_INIMIGOS = pygame.USEREVENT + 1
 #Eventos para passar a fase
 FIM_DE_FASE = pygame.USEREVENT + 2
 VERIFICACAO = 1
-TEMPO_RESTANTE = 5000
+TEMPO_RESTANTE = 15000 #30 segundos de duração de cada fase
 
 # M
 MENU = (

@@ -1,5 +1,11 @@
 from cx_Freeze import setup, Executable
-import os
 
 executaveis = [Executable("main.py")]
-files = {"include_files"}
+
+setup(
+    nome = ' MEU JOGO',
+    versao = '2.0',
+    descricao = 'Jogo de tiro',
+    opcoes = {'build.exe': {'packages': ['pygame']}},
+    executaveis = Executable
+)

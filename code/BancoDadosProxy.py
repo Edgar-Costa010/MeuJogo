@@ -16,7 +16,7 @@ class BancoDados:
 
 
     def resultados(self, score_dict: dict):
-        self.conexao.execute('INSERT INTO dados(name,score, date) VALUES (:name, :score, :date)', score_dict)
+        self.conexao.execute('INSERT INTO dados(name, score, date) VALUES (:name, :score, :date)', score_dict)
         self.conexao.commit()
 
     def melhores(self) -> list:
