@@ -2,12 +2,15 @@ import random
 from code.inimigos import Inimigos
 from code.jogador import Jogador
 from code.background import Background
-from const import LARGURA_TELA, ALTURA_TELA
+from code.const import LARGURA_TELA, ALTURA_TELA
 
+
+# Fábrica de entidades, jogadores, inimigos, tiros e outras entidades do jogo
 class EntityFactory:
 
+    # Instanciação das entidades e definição dos posicionamentos delas na tela
     @staticmethod
-    def get_entity(entity_name: str, position = (0,0)):
+    def get_entity(entity_name: str):
         match entity_name:
             case 'Level1bg':
                 list_bg = []

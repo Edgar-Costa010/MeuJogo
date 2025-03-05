@@ -1,5 +1,5 @@
 from code.entity import Entity
-from const import LARGURA_TELA, VELOCIDADES
+from code.const import LARGURA_TELA, VELOCIDADES
 
 
 class Background(Entity):

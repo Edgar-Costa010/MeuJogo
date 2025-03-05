@@ -1,30 +1,37 @@
-import sys
-from datetime import datetime
+# Importação dos métodos e classes necessárias
 
+import sys
 import pygame
 from pygame.font import Font
-from pygame import Surface, Rect, K_RETURN, K_BACKSPACE, KEYDOWN
+from datetime import datetime
 from code.BancoDadosProxy import BancoDados
-from const import PRETA, LARGURA_TELA, MENU, VERMELHO_ESCURO, ROXA
+from pygame import Surface, Rect, K_RETURN, K_BACKSPACE, KEYDOWN
+from code.const import PRETA, LARGURA_TELA, MENU, VERMELHO_ESCURO, ROXA
+
 
 class Score:
-
+    # Inicialização da classe
     def __init__(self, window: Surface):
         self.window = window
         self.surf = pygame.image.load('./assets/ScoreBackGround.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
         pass
 
+    # Função para salvar a pontuação (Score) do jogador
     def pontuacao(self, game_mode: str, pontuacao):
         pygame.mixer_music.load('./assets/SoundEnd.wav')
         pygame.mixer_music.play(-1)
+        # Conexão do banco de dados ao score do jogo para salvar a pontuação
         bancodados = BancoDados('banco')
         name = ''
+
+        # Laço para mensagem de parabéns e possibilidade de inserção do nome caso o jogador ganhe o jogo
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
-            self.score_text(30, 'PARABÉNS, JOGADOR!!!', PRETA, (LARGURA_TELA/2, 50))
+            self.score_text(30, 'PARABÉNS, JOGADOR!!!', PRETA, (LARGURA_TELA / 2, 50))
             self.score_text(30, 'VOCÊ VENCEU!!!', PRETA, (LARGURA_TELA / 2, 90))
             self.score_text(20, 'Digite seu nome:', VERMELHO_ESCURO, (LARGURA_TELA / 2, 120))
+
             score = pontuacao[0]
             if game_mode == MENU[0]:
                 score = pontuacao[0]
@@ -36,16 +43,19 @@ class Score:
                     sys.exit()
 
                 elif event.type == KEYDOWN:
-                    if event.key == K_RETURN and len (name) == 10:
+                    if event.key == K_RETURN and len(name) == 10:
                         bancodados.resultados({'name': name, 'score': score, 'date': get_formatted_date()})
+
+                    # Apagar a ultima letra digitada em caso de erro
                     elif event.key == K_BACKSPACE:
-                        name = name [:-1]
+                        name = name[:-1]
                     else:
                         if len(name) < 10:
                             name += event.unicode
             pygame.display.flip()
             pass
 
+    # Mídias e textos do menu em caso de vitória
     def ver_pontos(self):
         pygame.mixer_music.load('./assets/SoundMenu.wav')
         pygame.mixer_music.play(-1)
@@ -59,6 +69,7 @@ class Score:
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_center_pos)
         self.window.blit(source=text_surf, dest=text_rect)
+
 
 def get_formatted_date():
     current_datetime = datetime.now()

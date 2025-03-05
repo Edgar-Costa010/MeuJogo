@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
 import pygame.image
-from const import TEMPO_DE_VIDA, DANOS, SCORE
+from code.const import TEMPO_DE_VIDA, DANOS, SCORE
 
-class Entity (ABC):
 
+# Classe mãe, Entidade
+class Entity(ABC):
+    # Instanciação dos métodos em comun necessários nas classes filhas
     def __init__(self, name: str, position: tuple):
         self.name = name
         self.surf = pygame.image.load('./assets/' + name + '.png').convert_alpha()

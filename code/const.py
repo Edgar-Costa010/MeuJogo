@@ -47,6 +47,11 @@ DANOS = {
 # E
 EVENTOS_INIMIGOS = pygame.USEREVENT + 1
 
+#Eventos para passar a fase
+FIM_DE_FASE = pygame.USEREVENT + 2
+VERIFICACAO = 1
+TEMPO_RESTANTE = 5000
+
 # M
 MENU = (
     'INICIAR JOGO',
@@ -132,7 +137,3 @@ VELOCIDADES = {
     'inimigo1': 1,
     'inimigo2': 1
 }
-
-EVENT_TIME_OUT = pygame.USEREVENT + 2
-TIME_OUT_STEP = 1
-TIMEOUT_LEVEL = 6000
